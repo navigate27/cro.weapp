@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { ErrorHandler, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -22,6 +22,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatGridListModule } from '@angular/material/grid-list';
 import { ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
+import { ErrorHandlingService } from './services/error-handling/error-handling.service';
 
 @NgModule({
   declarations: [
@@ -50,7 +51,7 @@ import { HttpClientModule } from '@angular/common/http';
     MatGridListModule,
     ReactiveFormsModule,
   ],
-  providers: [],
+  providers: [{ provide: ErrorHandler, useClass: ErrorHandlingService }],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

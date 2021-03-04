@@ -26,7 +26,7 @@ export class LoginComponent implements OnInit {
   login() {
     const request = this.loginFormGroup.value;
     console.log(request);
-    const data = this.loginService.getLogin(request).subscribe((data) => {
+    this.loginService.getLogin(request).subscribe((data) => {
       console.log(data);
     });
   }

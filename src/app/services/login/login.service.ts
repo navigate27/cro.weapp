@@ -11,10 +11,16 @@ export class LoginService {
   constructor(private http: HttpClient, private utilService: UtilService) {}
 
   getLogin(request: any) {
-    console.log(this.api);
-    const headers = this.utilService.setHeaders();
-    return this.http.get<any>(`${this.api}/booking/35`, {
-      headers,
-    });
+    try {
+      const headers = this.utilService.setHeaders();
+      return this.http.post<any>(`${this.api}/portal/user/login`, request, {
+        headers,
+      });
+    } catch (error) {
+      console.log(error);
+      throw {
+        message: error,
+      };
+    }
   }
 }

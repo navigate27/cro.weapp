@@ -4,9 +4,9 @@
 
 export const environment = {
   production: false,
-  env: 'sample',
+  env: "dev",
   config: {
-    apiUrl: 'sample',
+    apiUrl: "http://192.168.1.26:8070/api",
     isLogsEnabled: true,
   },
 };

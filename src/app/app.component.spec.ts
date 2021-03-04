@@ -20,16 +20,16 @@ describe('AppComponent', () => {
     expect(app).toBeTruthy();
   });
 
-  it(`should have as title 'croweeapp'`, () => {
+  it(`should have as title 'portalweeapp'`, () => {
     const fixture = TestBed.createComponent(AppComponent);
     const app = fixture.componentInstance;
-    expect(app.title).toEqual('croweeapp');
+    expect(app.title).toEqual('portalweeapp');
   });
 
   it('should render title', () => {
     const fixture = TestBed.createComponent(AppComponent);
     fixture.detectChanges();
     const compiled = fixture.nativeElement;
-    expect(compiled.querySelector('.content span').textContent).toContain('croweeapp app is running!');
+    expect(compiled.querySelector('.content span').textContent).toContain('portalweeapp app is running!');
   });
 });

@@ -35,8 +35,8 @@ import { HttpClientModule } from '@angular/common/http';
     DashboardComponent,
   ],
   imports: [
-    HttpClientModule,
     BrowserModule,
+    HttpClientModule,
     AppRoutingModule,
     BrowserAnimationsModule,
     LayoutModule,

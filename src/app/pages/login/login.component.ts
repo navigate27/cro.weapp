@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { Subscription } from 'rxjs';
+import { LoginService } from 'src/app/services/login/login.service';
 import { LoginFormGroup } from '../../utils/form-group/login';
 
 @Component({
@@ -12,7 +13,7 @@ export class LoginComponent implements OnInit {
   loginFormGroup: FormGroup = LoginFormGroup;
   loginSubscription: Subscription = new Subscription();
   isDisabledLogin: boolean = true;
-  constructor() {}
+  constructor(private loginService: LoginService) {}
 
   ngOnInit(): void {
     this.loginSubscription = this.loginFormGroup.statusChanges.subscribe(
@@ -21,8 +22,12 @@ export class LoginComponent implements OnInit {
       }
     );
   }
-  
-  login(){
-    
+
+  login() {
+    const request = this.loginFormGroup.value;
+    console.log(request);
+    const data = this.loginService.getLogin(request).subscribe((data) => {
+      console.log(data);
+    });
   }
 }

@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "croweeapp": {
+    "portalweeapp": {
       "projectType": "application",
       "schematics": {
         "@schematics/angular:component": {
@@ -20,7 +20,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/croweeapp",
+            "outputPath": "dist/portalweeapp",
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": "src/polyfills.ts",
@@ -63,24 +63,48 @@
                   "maximumError": "4kb"
                 }
               ]
+            },
+            "uat": {
+              "fileReplacements": [
+                {
+                  "replace": "src/environments/environment.ts",
+                  "with": "src/environments/environment.uat.ts"
+                }
+              ],
+              "aot": true
+            },
+            "dev": {
+              "fileReplacements": [
+                {
+                  "replace": "src/environments/environment.ts",
+                  "with": "src/environments/environment.dev.ts"
+                }
+              ],
+              "aot": true
             }
           }
         },
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "croweeapp:build"
+            "browserTarget": "portalweeapp:build"
           },
           "configurations": {
             "production": {
-              "browserTarget": "croweeapp:build:production"
+              "browserTarget": "portalweeapp:build:production"
+            },
+            "uat": {
+              "browserTarget": "portalweeapp:build:uat"
+            },
+            "dev": {
+              "browserTarget": "portalweeapp:build:dev"
             }
           }
         },
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "croweeapp:build"
+            "browserTarget": "portalweeapp:build"
           }
         },
         "test": {
@@ -118,16 +142,22 @@
           "builder": "@angular-devkit/build-angular:protractor",
           "options": {
             "protractorConfig": "e2e/protractor.conf.js",
-            "devServerTarget": "croweeapp:serve"
+            "devServerTarget": "portalweeapp:serve"
           },
           "configurations": {
             "production": {
-              "devServerTarget": "croweeapp:serve:production"
+              "devServerTarget": "portalweeapp:serve:production"
+            },
+            "uat": {
+              "devServerTarget": "portalweeapp:serve:uat"
+            },
+            "dev": {
+              "devServerTarget": "portalweeapp:serve:dev"
             }
           }
         }
       }
     }
   },
-  "defaultProject": "croweeapp"
+  "defaultProject": "portalweeapp"
 }

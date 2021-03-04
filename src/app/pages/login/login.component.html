@@ -1,0 +1,24 @@
+<div class="padding login">
+  <img src="./../../assets/logo-weeapp.jpg" alt="" />
+  <form [formGroup]="loginFormGroup">
+    <div>
+      <mat-form-field>
+        <mat-label>Email</mat-label>
+        <input formControlName="email" matInput type="text" />
+      </mat-form-field>
+    </div>
+    <mat-form-field>
+      <mat-label>Password</mat-label>
+      <input formControlName="password" matInput type="password" />
+    </mat-form-field>
+  </form>
+  <button
+    mat-raised-button
+    mat-button
+    color="primary"
+    [disabled]="isDisabledLogin"
+    (click)="login()"
+  >
+    Login
+  </button>
+</div>

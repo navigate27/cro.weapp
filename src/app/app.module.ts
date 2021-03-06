@@ -23,6 +23,8 @@ import { MatGridListModule } from '@angular/material/grid-list';
 import { ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { ErrorHandlingService } from './services/error-handling/error-handling.service';
+import { ApplyVipComponent } from './pages/apply-vip/apply-vip.component';
+import { ServicePartnerComponent } from './pages/service-partner/service-partner.component';
 
 @NgModule({
   declarations: [
@@ -34,6 +36,8 @@ import { ErrorHandlingService } from './services/error-handling/error-handling.s
     PageNotFoundComponent,
     LoginComponent,
     DashboardComponent,
+    ApplyVipComponent,
+    ServicePartnerComponent,
   ],
   imports: [
     BrowserModule,

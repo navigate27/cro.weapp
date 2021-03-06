@@ -1,0 +1,55 @@
+<div class="container">
+  <h2>VIP Customer Application</h2>
+
+  <form [formGroup]="applyVIPFormGroup">
+    <mat-form-field class="full-width-field">
+      <mat-label>Email</mat-label>
+      <input matInput type="text" formControlName="email" />
+    </mat-form-field>
+
+    <div *ngIf="isUserExists">
+      <mat-form-field class="full-width-field">
+        <mat-label>Name</mat-label>
+        <input matInput readonly />
+      </mat-form-field>
+      <mat-form-field class="full-width-field">
+        <mat-label>Phone Number</mat-label>
+        <input matInput readonly />
+      </mat-form-field>
+      <mat-form-field class="full-width-field">
+        <mat-label>Referral ID</mat-label>
+        <input formControlName="referral_id" matInput />
+      </mat-form-field>
+      <mat-form-field class="full-width-field">
+        <mat-label>Company Name</mat-label>
+        <input formControlName="company_name" matInput />
+      </mat-form-field>
+      <mat-form-field class="full-width-field">
+        <mat-label>Company Address</mat-label>
+        <input formControlName="company_address" matInput />
+      </mat-form-field>
+      <mat-form-field class="full-width-field">
+        <mat-label>Company Phone Number</mat-label>
+        <input formControlName="company_phone" matInput />
+      </mat-form-field>
+      <mat-form-field class="full-width-field">
+        <mat-label>Business Category</mat-label>
+        <input formControlName="business_category" matInput />
+      </mat-form-field>
+      <mat-form-field class="full-width-field">
+        <mat-label>Number of Parcel Monthly</mat-label>
+        <input formControlName="parcel_mon" matInput />
+      </mat-form-field>
+    </div>
+
+    <button
+      mat-raised-button
+      color="primary"
+      mat-button
+      (click)="applyVIP()"
+      [disabled]="isApplyDisabled"
+    >
+      Apply VIP
+    </button>
+  </form>
+</div>

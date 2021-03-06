@@ -1,0 +1,64 @@
+<h2 mat-dialog-title>Service Partner</h2>
+<mat-dialog-content class="mat-typography">
+  <form [formGroup]="spFormGroup">
+    <div class="inline-form">
+      <mat-form-field>
+        <mat-label>Company Name</mat-label>
+        <input matInput formControlName="company_name" />
+      </mat-form-field>
+
+      <mat-form-field>
+        <mat-label>Company Contact No.</mat-label>
+        <input matInput formControlName="company_contact_no" />
+      </mat-form-field>
+
+      <mat-form-field>
+        <mat-label>Company Address</mat-label>
+        <textarea rows="3" matInput formControlName="company_address"></textarea>
+      </mat-form-field>
+    </div>
+
+    <div class="inline-form">
+      <mat-form-field>
+        <mat-label>Contact Person</mat-label>
+        <input matInput formControlName="contact_person" />
+      </mat-form-field>
+
+      <mat-form-field>
+        <mat-label>Contact No.</mat-label>
+        <input matInput formControlName="contact_no" />
+      </mat-form-field>
+    </div>
+
+    <div class="inline-form">
+      <mat-form-field>
+        <mat-label>Email</mat-label>
+        <input matInput formControlName="email" />
+      </mat-form-field>
+
+      <mat-form-field>
+        <mat-label>Business Category</mat-label>
+        <input matInput formControlName="business_category" />
+      </mat-form-field>
+    </div>
+
+    <div class="inline-form">
+      <mat-form-field>
+        <mat-label>Area</mat-label>
+        <input matInput formControlName="area" />
+      </mat-form-field>
+
+      <mat-form-field>
+        <mat-label>Remarks</mat-label>
+        <input matInput formControlName="remarks" />
+      </mat-form-field>
+    </div>
+  </form>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+    <button mat-raised-button color="warn" *ngIf="!isCreate" (click)="deleteButton()">Delete</button>
+    <button mat-button mat-dialog-close>Close</button>
+    <button mat-raised-button color="primary" (click)="saveButton()" [disabled]="isSaveDisabled">
+      {{ this.messageButton }} Record
+    </button>
+</mat-dialog-actions>

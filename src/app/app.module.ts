@@ -25,6 +25,10 @@ import { HttpClientModule } from '@angular/common/http';
 import { ErrorHandlingService } from './services/error-handling/error-handling.service';
 import { ApplyVipComponent } from './pages/apply-vip/apply-vip.component';
 import { ServicePartnerComponent } from './pages/service-partner/service-partner.component';
+import { MatTableModule } from '@angular/material/table';
+import { ServicePartnerDialogComponent } from './pages/service-partner/service-partner-dialog/service-partner-dialog.component';
+import { MatDialogModule } from '@angular/material/dialog';
+import { ConfirmationDialogComponent } from './components/confirmation-dialog/confirmation-dialog.component';
 
 @NgModule({
   declarations: [
@@ -38,6 +42,8 @@ import { ServicePartnerComponent } from './pages/service-partner/service-partner
     DashboardComponent,
     ApplyVipComponent,
     ServicePartnerComponent,
+    ServicePartnerDialogComponent,
+    ConfirmationDialogComponent,
   ],
   imports: [
     BrowserModule,
@@ -54,6 +60,8 @@ import { ServicePartnerComponent } from './pages/service-partner/service-partner
     MatFormFieldModule,
     MatGridListModule,
     ReactiveFormsModule,
+    MatTableModule,
+    MatDialogModule,
   ],
   providers: [{ provide: ErrorHandler, useClass: ErrorHandlingService }],
   bootstrap: [AppComponent],

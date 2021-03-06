@@ -1,4 +1,5 @@
 /* You can add global styles to this file, and also import other style files */
+@import "~bootstrap-utilities";
 
 html,
 body {
@@ -16,20 +17,22 @@ body {
 .container {
   margin: 0 auto;
   width: 80%;
-
-  .full-width-field {
-    width: 100%;
-  }
 }
 
-.text-center {
-  text-align: center !important;
+.full-width-field {
+  width: 100%;
 }
 
-.text-left {
-  text-align: left !important;
+.mat-cell {
+  font-size: 12px;
+  border-right: solid 1px #eee;
+  padding: 10px !important;
 }
 
-.text-right {
-  text-align: right !important;
+.clickable {
+  cursor: pointer !important;
+}
+
+.inline-form .mat-form-field + .mat-form-field {
+  margin-left: 8px;
 }

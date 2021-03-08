@@ -20,7 +20,7 @@ import { DashboardComponent } from './pages/dashboard/dashboard.component';
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatGridListModule } from '@angular/material/grid-list';
-import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { ErrorHandlingService } from './services/error-handling/error-handling.service';
 import { ApplyVipComponent } from './pages/apply-vip/apply-vip.component';
@@ -29,6 +29,11 @@ import { MatTableModule } from '@angular/material/table';
 import { ServicePartnerDialogComponent } from './pages/service-partner/service-partner-dialog/service-partner-dialog.component';
 import { MatDialogModule } from '@angular/material/dialog';
 import { ConfirmationDialogComponent } from './components/confirmation-dialog/confirmation-dialog.component';
+import { VipComponent } from './pages/vip/vip.component';
+import { VipDialogComponent } from './pages/vip/vip-dialog/vip-dialog.component';
+import { VipStatusComponent } from './pages/vip/vip-status/vip-status.component';
+import { MatSelectModule } from '@angular/material/select';
+import {MatSnackBarModule} from '@angular/material/snack-bar';
 
 @NgModule({
   declarations: [
@@ -44,6 +49,9 @@ import { ConfirmationDialogComponent } from './components/confirmation-dialog/co
     ServicePartnerComponent,
     ServicePartnerDialogComponent,
     ConfirmationDialogComponent,
+    VipComponent,
+    VipDialogComponent,
+    VipStatusComponent,
   ],
   imports: [
     BrowserModule,
@@ -62,6 +70,9 @@ import { ConfirmationDialogComponent } from './components/confirmation-dialog/co
     ReactiveFormsModule,
     MatTableModule,
     MatDialogModule,
+    MatSelectModule,
+    FormsModule,
+    MatSnackBarModule
   ],
   providers: [{ provide: ErrorHandler, useClass: ErrorHandlingService }],
   bootstrap: [AppComponent],

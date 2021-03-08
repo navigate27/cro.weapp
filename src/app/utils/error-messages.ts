@@ -3,4 +3,5 @@ export const ERROR_MESSAGES = {
   DEFAULT_ERROR_MESSAGE: "There was an uncaught error.",
   MOBILE_ERR: "Mobile Number already exists.",
   EMAIL_ERR: "Email address already exists.",
+  NOT_FOUND: "No record found"
 };

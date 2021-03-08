@@ -1,0 +1,70 @@
+<h2 mat-dialog-title>VIP Application</h2>
+<mat-dialog-content class="mat-typography">
+  <form [formGroup]="vipFormGroup">
+    <div class="inline-form">
+      <mat-form-field>
+        <mat-label>Name</mat-label>
+        <input matInput formControlName="name" readonly />
+      </mat-form-field>
+
+      <mat-form-field>
+        <mat-label>Email</mat-label>
+        <input matInput formControlName="email" readonly />
+      </mat-form-field>
+
+      <mat-form-field>
+        <mat-label>Mobile Number</mat-label>
+        <input matInput formControlName="mobile_number" readonly />
+      </mat-form-field>
+    </div>
+
+    <div class="inline-form">
+      <mat-form-field>
+        <mat-label>Referral ID</mat-label>
+        <input matInput formControlName="referral_id" />
+      </mat-form-field>
+
+      <mat-form-field>
+        <mat-label>Company Name</mat-label>
+        <input matInput formControlName="company_name" />
+      </mat-form-field>
+
+      <mat-form-field>
+        <mat-label>Company Address</mat-label>
+        <textarea rows="3" matInput formControlName="company_address"></textarea>
+      </mat-form-field>
+    </div>
+
+    <div class="inline-form">
+      <mat-form-field>
+        <mat-label>Contact Person</mat-label>
+        <input matInput formControlName="company_contact_no" />
+      </mat-form-field>
+
+      <mat-form-field>
+        <mat-label>Business Category</mat-label>
+        <input matInput formControlName="business_category" />
+      </mat-form-field>
+    </div>
+
+    <div class="inline-form">
+      <mat-form-field>
+        <mat-label>Parcel Monthly</mat-label>
+        <input matInput formControlName="parcel_monthly" type="number" />
+      </mat-form-field>
+
+      <mat-form-field>
+        <mat-label>Platform</mat-label>
+        <input matInput formControlName="platform" />
+      </mat-form-field>
+    </div>
+
+  </form>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+    <button mat-raised-button color="warn" (click)="deleteButton()">Delete</button>
+    <button mat-button mat-dialog-close>Close</button>
+    <button mat-raised-button color="primary" (click)="saveButton()" [disabled]="isSaveDisabled">
+      Save Record
+    </button>
+</mat-dialog-actions>

@@ -8,6 +8,7 @@ import { HomeComponent } from './pages/home/home.component';
 import { LoginComponent } from './pages/login/login.component';
 import { PageNotFoundComponent } from './pages/page-not-found/page-not-found.component';
 import { ServicePartnerComponent } from './pages/service-partner/service-partner.component';
+import { VipComponent } from './pages/vip/vip.component';
 
 const routes: Routes = [
   { path: '', component: DashboardComponent },
@@ -17,6 +18,7 @@ const routes: Routes = [
   { path: 'login', component: LoginComponent },
   { path: 'apply/vip', component: ApplyVipComponent },
   { path: 'sp', component: ServicePartnerComponent },
+  { path: 'vip', component: VipComponent },
   { path: '**', component: PageNotFoundComponent },
 ];
 

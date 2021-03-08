@@ -1,0 +1,63 @@
+<div class="">
+  <h2 class="mat-title">VIP Applications</h2>
+
+  <table
+    *ngIf="vips"
+    mat-table
+    [dataSource]="vips"
+    class="mat-elevation-z1 mt-3"
+  >
+    <ng-container matColumnDef="name">
+      <th mat-header-cell *matHeaderCellDef>Name</th>
+      <td mat-cell *matCellDef="let element">
+        {{ element.firstname }} {{ element.lastname }}
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="email">
+      <th mat-header-cell *matHeaderCellDef>Email</th>
+      <td mat-cell *matCellDef="let element">{{ element.email }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="mobile_number">
+      <th mat-header-cell *matHeaderCellDef>Mobile No.</th>
+      <td mat-cell *matCellDef="let element">{{ element.mobile_number }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="company_name">
+      <th mat-header-cell *matHeaderCellDef>Company Name</th>
+      <td mat-cell *matCellDef="let element">{{ element.company_name }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="shipper_type">
+      <th mat-header-cell *matHeaderCellDef>Shipper Type</th>
+      <td mat-cell *matCellDef="let element">{{ element.shipper_type }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="vip_status">
+      <th mat-header-cell *matHeaderCellDef>VIP status</th>
+      <td mat-cell *matCellDef="let element">
+        {{ element.application_status }}
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="actions">
+      <th mat-header-cell *matHeaderCellDef>Actions</th>
+      <td mat-cell *matCellDef="let element">
+        <button mat-raised-button color="primary" (click)="getRow(element)" class="mr-2">
+          Update Record
+        </button>
+        <button
+          mat-raised-button
+          color="accent"
+          (click)="updateStatus(element)"
+        >
+          VIP
+        </button>
+      </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="columns"></tr>
+    <tr mat-row *matRowDef="let row; columns: columns"></tr>
+  </table>
+</div>

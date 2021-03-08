@@ -1,20 +1,25 @@
 <div class="container">
-  <h2>VIP Customer Application</h2>
+  <h2 class="mat-display-1 pt-4">VIP Customer Application</h2>
 
-  <form [formGroup]="applyVIPFormGroup">
+  <form [formGroup]="applyVIPFormGroup" *ngIf="!isSubmitted">
     <mat-form-field class="full-width-field">
       <mat-label>Email</mat-label>
-      <input matInput type="text" formControlName="email" />
+      <input
+        matInput
+        type="text"
+        formControlName="email"
+        [readOnly]="isUserExists"
+      />
     </mat-form-field>
 
     <div *ngIf="isUserExists">
       <mat-form-field class="full-width-field">
         <mat-label>Name</mat-label>
-        <input matInput readonly />
+        <input matInput readonly formControlName="name" />
       </mat-form-field>
       <mat-form-field class="full-width-field">
         <mat-label>Phone Number</mat-label>
-        <input matInput readonly />
+        <input matInput readonly formControlName="mobile_number" />
       </mat-form-field>
       <mat-form-field class="full-width-field">
         <mat-label>Referral ID</mat-label>
@@ -30,7 +35,7 @@
       </mat-form-field>
       <mat-form-field class="full-width-field">
         <mat-label>Company Phone Number</mat-label>
-        <input formControlName="company_phone" matInput />
+        <input formControlName="company_contact_no" matInput />
       </mat-form-field>
       <mat-form-field class="full-width-field">
         <mat-label>Business Category</mat-label>
@@ -38,18 +43,43 @@
       </mat-form-field>
       <mat-form-field class="full-width-field">
         <mat-label>Number of Parcel Monthly</mat-label>
-        <input formControlName="parcel_mon" matInput />
+        <input type="number" formControlName="parcel_monthly" matInput />
       </mat-form-field>
+      <mat-form-field class="full-width-field">
+        <mat-label>Platform</mat-label>
+        <input formControlName="platform" matInput readonly />
+      </mat-form-field>
+
+      <button
+        mat-raised-button
+        color="primary"
+        mat-button
+        (click)="applyVIP()"
+        [disabled]="isApplyDisabled"
+      >
+        Apply VIP
+      </button>
     </div>
 
     <button
       mat-raised-button
       color="primary"
       mat-button
-      (click)="applyVIP()"
-      [disabled]="isApplyDisabled"
+      (click)="searchEmail()"
+      *ngIf="!isUserExists"
     >
-      Apply VIP
+      Search Email
     </button>
   </form>
+
+  <div class="success-vip" *ngIf="isSubmitted">
+    <h3>Your VIP application has been submitted!</h3>
+    <button
+      mat-raised-button
+      color="primary"
+      mat-button
+    >
+      Go Home
+    </button>
+  </div>
 </div>

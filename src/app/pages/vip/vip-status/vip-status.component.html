@@ -1,0 +1,14 @@
+<h2 mat-dialog-title>VIP Status</h2>
+<mat-dialog-content class="mat-typography">
+    <mat-form-field class="full-width-field">
+        <mat-label>Select status</mat-label>
+        <mat-select [(ngModel)]="appStatus" (selectionChange)="selectStatus()">
+            <mat-option value="APPROVED">APPROVED</mat-option>
+            <mat-option value="DECLINED">DECLINED</mat-option>
+        </mat-select>
+    </mat-form-field>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+    <button mat-button mat-dialog-close>Close</button>
+    <button mat-raised-button color="primary" (click)="saveButton()" [disabled]="isSaveDisabled">Update</button>
+</mat-dialog-actions>

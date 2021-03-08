@@ -1,9 +1,9 @@
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
-export const ApplyVIPFormGroup: FormGroup = new FormBuilder().group({
-  email: ['', [Validators.required]],
-  name: ['', [Validators.required]],
-  mobile_number: ['', [Validators.required]],
+export const VIPFormGroup: FormGroup = new FormBuilder().group({
+  name: [''],
+  email: [''],
+  mobile_number: [''],
   referral_id: ['', [Validators.required]],
   company_name: ['', [Validators.required]],
   company_address: ['', [Validators.required]],

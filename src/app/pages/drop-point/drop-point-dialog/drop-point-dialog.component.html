@@ -1,0 +1,107 @@
+<h2 mat-dialog-title>Drop Points</h2>
+<mat-dialog-content class="mat-typography">
+  <form [formGroup]="dropPointFormGroup">
+    <div class="inline-form">
+      <mat-form-field>
+        <mat-label>Company Name</mat-label>
+        <input matInput formControlName="company_name" readonly />
+      </mat-form-field>
+
+      <mat-form-field>
+        <mat-label>Company Contact No.</mat-label>
+        <input matInput formControlName="company_contact_no" readonly />
+      </mat-form-field>
+
+      <mat-form-field class="full-width-field">
+        <mat-label>Company Address</mat-label>
+        <textarea
+          rows="2"
+          matInput
+          formControlName="company_address"
+          readonly
+        ></textarea>
+      </mat-form-field>
+    </div>
+
+    <div class="inline-form">
+      <mat-form-field>
+        <mat-label>Email</mat-label>
+        <input matInput formControlName="email" readonly />
+      </mat-form-field>
+
+      <mat-form-field>
+        <mat-label>Area</mat-label>
+        <input matInput formControlName="area" readonly />
+      </mat-form-field>
+    </div>
+
+    <div class="table-container" *ngIf="dropPoints().length != 0">
+      <table formArrayName="drop_points">
+        <thead>
+          <th>[Delete]</th>
+          <th>Drop Point Name</th>
+          <th>Area</th>
+          <th>Contact No.</th>
+          <th>Contact Person</th>
+          <th>Address (Other details)</th>
+          <th>Barangay</th>
+          <th>City</th>
+          <th>Province</th>
+        </thead>
+        <tbody>
+          <tr
+            *ngFor="let dropPoint of dropPoints().controls; let dpi = index"
+            [formGroupName]="dpi"
+          >
+            <td>
+              <button mat-mini-fab color="warn" (click)="removeDropPoint(dpi)">
+                <mat-icon>delete</mat-icon>
+              </button>
+            </td>
+            <td>
+                <input matInput formControlName="drop_point_name" />
+            </td>
+            <td>
+                <input matInput formControlName="drop_point_area" />
+            </td>
+            <td>
+                <input matInput formControlName="drop_point_contact_person" />
+            </td>
+            <td>
+                <input matInput formControlName="drop_point_contact_no" />
+            </td>
+            <td>
+                <input matInput formControlName="drop_point_address_others" />
+            </td>
+            <td>
+                <input matInput formControlName="drop_point_address_barangay" />
+            </td>
+            <td>
+                <input matInput formControlName="drop_point_address_city" />
+            </td>
+            <td>
+                <input matInput formControlName="drop_point_address_province" />
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="mt-4">
+      <button mat-raised-button color="primary" (click)="addDropPoint()">
+        <mat-icon>add_circle</mat-icon> Add Drop point
+      </button>
+    </div>
+  </form>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+  <button mat-button mat-dialog-close>Close</button>
+  <button
+    mat-raised-button
+    color="primary"
+    (click)="saveButton()"
+    [disabled]="isSaveDisabled"
+  >
+    Save Record
+  </button>
+</mat-dialog-actions>

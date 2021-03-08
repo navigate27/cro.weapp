@@ -14,11 +14,10 @@ export class ServicePartnerComponent implements OnInit {
     'company_name',
     'company_address',
     'company_contact_no',
-    'contact_person',
     'email',
     'business_category',
     'area',
-    'remarks',
+    'actions'
   ];
 
   constructor(private dbService: DbService, public dialog: MatDialog) {}

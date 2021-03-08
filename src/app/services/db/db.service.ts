@@ -161,4 +161,32 @@ export class DbService {
       };
     }
   }
+
+  getSPDropPoints() {
+    try {
+      const headers = this.utilService.setHeaders();
+      return this.http.get<any>(`${this.api}/drop/point/sp/all`, {
+        headers,
+      });
+    } catch (error) {
+      console.log(error);
+      throw {
+        message: error,
+      };
+    }
+  }
+
+  addDropPoints(request: any) {
+    try {
+      const headers = this.utilService.setHeaders();
+      return this.http.post<any>(`${this.api}/drop/point/register/many`, request, {
+        headers,
+      });
+    } catch (error) {
+      console.log(error);
+      throw {
+        message: error,
+      };
+    }
+  }
 }

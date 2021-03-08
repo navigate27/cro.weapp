@@ -40,3 +40,27 @@ body {
 .inline-form .mat-form-field + .mat-form-field {
   margin-left: 8px;
 }
+
+.table-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  // width: 1000px;
+  overflow-x: auto;
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    border-spacing: 0;
+    display: block;
+
+    td {
+      padding: 10px;
+      border: solid 1px #b8acc5;
+    }
+
+    th {
+      border: solid 1px #cbc3d4;
+    }
+  }
+}

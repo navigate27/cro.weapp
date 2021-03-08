@@ -34,6 +34,8 @@ import { VipDialogComponent } from './pages/vip/vip-dialog/vip-dialog.component'
 import { VipStatusComponent } from './pages/vip/vip-status/vip-status.component';
 import { MatSelectModule } from '@angular/material/select';
 import {MatSnackBarModule} from '@angular/material/snack-bar';
+import { DropPointComponent } from './pages/drop-point/drop-point.component';
+import { DropPointDialogComponent } from './pages/drop-point/drop-point-dialog/drop-point-dialog.component';
 
 @NgModule({
   declarations: [
@@ -52,6 +54,8 @@ import {MatSnackBarModule} from '@angular/material/snack-bar';
     VipComponent,
     VipDialogComponent,
     VipStatusComponent,
+    DropPointComponent,
+    DropPointDialogComponent,
   ],
   imports: [
     BrowserModule,

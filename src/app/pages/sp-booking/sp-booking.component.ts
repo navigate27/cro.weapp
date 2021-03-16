@@ -4,6 +4,8 @@ import { DbService } from 'src/app/services/db/db.service';
 import { SpBookingParcelDetailsComponent } from './sp-booking-parcel-details/sp-booking-parcel-details.component';
 import * as moment from 'moment';
 import { UtilService } from 'src/app/services/utils/util.service';
+import { SelectionModel } from '@angular/cdk/collections';
+import { MatTableDataSource } from '@angular/material/table';
 
 @Component({
   selector: 'app-sp-booking',
@@ -12,6 +14,12 @@ import { UtilService } from 'src/app/services/utils/util.service';
 })
 export class SpBookingComponent implements OnInit {
   bookings: any = [];
+
+  initialSelection = [];
+  allowMultiSelect = true;
+  dataSource = new MatTableDataSource<Element>(this.bookings);
+  selection = new SelectionModel<Element>(true, []);
+
   filter = {
     bookType: null,
     dateFrom: null,
@@ -60,6 +68,8 @@ export class SpBookingComponent implements OnInit {
     console.log(request);
     this.dbService.getBookingsDateRange(request).subscribe((data) => {
       this.bookings = data.booking_data;
+      this.dataSource = new MatTableDataSource<Element>(this.bookings);
+      this.masterToggle();
       this.hasBookings = false;
       if (this.bookings.length != 0) {
         this.hasBookings = true;
@@ -70,7 +80,7 @@ export class SpBookingComponent implements OnInit {
 
   getRow(row: any) {
     let dialogRef = this.dialog.open(SpBookingParcelDetailsComponent, {
-      height: '300px',
+      height: '320px',
       width: '650px',
       data: row,
     });
@@ -93,6 +103,18 @@ export class SpBookingComponent implements OnInit {
     console.log(row);
   }
 
+  isAllSelected() {
+    const numSelected = this.selection.selected.length;
+    const numRows = this.dataSource.data.length;
+    return numSelected === numRows;
+  }
+
+  masterToggle() {
+    this.isAllSelected()
+      ? this.selection.clear()
+      : this.dataSource.data.forEach((row) => this.selection.select(row));
+  }
+
   downloadCSV() {
     const filename = `${this.dateFrom} - ${this.dateTo} ${
       this.filter.bookType || ''
@@ -100,7 +122,7 @@ export class SpBookingComponent implements OnInit {
     let csvData: any = [];
     let exportedIds: string[] = [];
 
-    this.bookings.forEach((row: any) => {
+    this.selection.selected.forEach((row: any) => {
       const rowData = {
         TRACKING_ID: row.tracking_id,
         ORDER_ID: row.order_id,
@@ -131,5 +153,6 @@ export class SpBookingComponent implements OnInit {
 
     // this.utilService.exportToCsv(filename, csvData);
     console.log(exportedIds);
+    console.log(csvData);
   }
 }

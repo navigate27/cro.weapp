@@ -43,6 +43,7 @@ import { SpBookingComponentComponent } from './components/table/sp-booking-compo
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
 import { MatCheckboxModule } from '@angular/material/checkbox';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 @NgModule({
   declarations: [
@@ -91,6 +92,7 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
     MatDatepickerModule,
     MatNativeDateModule,
     MatCheckboxModule,
+    MatProgressSpinnerModule,
   ],
   providers: [
     { provide: ErrorHandler, useClass: ErrorHandlingService },

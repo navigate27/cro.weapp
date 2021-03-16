@@ -33,9 +33,16 @@ import { VipComponent } from './pages/vip/vip.component';
 import { VipDialogComponent } from './pages/vip/vip-dialog/vip-dialog.component';
 import { VipStatusComponent } from './pages/vip/vip-status/vip-status.component';
 import { MatSelectModule } from '@angular/material/select';
-import {MatSnackBarModule} from '@angular/material/snack-bar';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { DropPointComponent } from './pages/drop-point/drop-point.component';
 import { DropPointDialogComponent } from './pages/drop-point/drop-point-dialog/drop-point-dialog.component';
+import { SpBookingComponent } from './pages/sp-booking/sp-booking.component';
+import { SpBookingParcelDetailsComponent } from './pages/sp-booking/sp-booking-parcel-details/sp-booking-parcel-details.component';
+import { MatTabsModule } from '@angular/material/tabs';
+import { SpBookingComponentComponent } from './components/table/sp-booking-component/sp-booking-component.component';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatNativeDateModule } from '@angular/material/core';
+import { MatCheckboxModule } from '@angular/material/checkbox';
 
 @NgModule({
   declarations: [
@@ -56,6 +63,9 @@ import { DropPointDialogComponent } from './pages/drop-point/drop-point-dialog/d
     VipStatusComponent,
     DropPointComponent,
     DropPointDialogComponent,
+    SpBookingComponent,
+    SpBookingParcelDetailsComponent,
+    SpBookingComponentComponent,
   ],
   imports: [
     BrowserModule,
@@ -76,9 +86,16 @@ import { DropPointDialogComponent } from './pages/drop-point/drop-point-dialog/d
     MatDialogModule,
     MatSelectModule,
     FormsModule,
-    MatSnackBarModule
+    MatSnackBarModule,
+    MatTabsModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
+    MatCheckboxModule,
   ],
-  providers: [{ provide: ErrorHandler, useClass: ErrorHandlingService }],
+  providers: [
+    { provide: ErrorHandler, useClass: ErrorHandlingService },
+    MatDatepickerModule,
+  ],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

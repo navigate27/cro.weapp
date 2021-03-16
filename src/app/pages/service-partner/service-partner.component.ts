@@ -11,6 +11,7 @@ import { ServicePartnerDialogComponent } from './service-partner-dialog/service-
 export class ServicePartnerComponent implements OnInit {
   servicePartners: any = [];
   columns: string[] = [
+    'checked',
     'company_name',
     'company_address',
     'company_contact_no',

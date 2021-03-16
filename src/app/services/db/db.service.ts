@@ -189,4 +189,18 @@ export class DbService {
       };
     }
   }
+  
+  getBookingsDateRange(request: any) {
+    try {
+      const headers = this.utilService.setHeaders();
+      return this.http.post<any>(`${this.api}/booking/sp/date`, request, {
+        headers,
+      });
+    } catch (error) {
+      console.log(error);
+      throw {
+        message: error,
+      };
+    }
+  }
 }

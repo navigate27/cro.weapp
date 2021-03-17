@@ -3,6 +3,7 @@
   justify-content: center;
   align-items: center;
   flex-direction: column;
+  padding-top: 150px;
 
   img {
     width: 300px;
@@ -12,4 +13,8 @@
   form {
     padding-top: 20px;
   }
+}
+
+mat-form-field {
+  width: 250px;
 }

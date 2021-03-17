@@ -13,15 +13,16 @@ import { SpBookingComponent } from './pages/sp-booking/sp-booking.component';
 import { VipComponent } from './pages/vip/vip.component';
 
 const routes: Routes = [
-  { path: '', component: DashboardComponent },
-  { path: 'dashboard', component: DashboardComponent },
-  { path: 'booking-list', component: BookingListComponent },
-  { path: 'account', component: AccountComponent },
+  { path: '', component: LoginComponent },
   { path: 'login', component: LoginComponent },
-  { path: 'apply/vip', component: ApplyVipComponent },
-  { path: 'sp', component: ServicePartnerComponent },
-  { path: 'vip', component: VipComponent },
-  { path: 'dp', component: DropPointComponent },
+  // { path: 'dashboard', component: DashboardComponent },
+  // { path: 'booking-list', component: BookingListComponent },
+  // { path: 'account', component: AccountComponent },
+  // { path: 'login', component: LoginComponent },
+  // { path: 'apply/vip', component: ApplyVipComponent },
+  // { path: 'sp', component: ServicePartnerComponent },
+  // { path: 'vip', component: VipComponent },
+  // { path: 'dp', component: DropPointComponent },
   { path: 'sp-booking', component: SpBookingComponent },
   { path: '**', component: PageNotFoundComponent },
 ];

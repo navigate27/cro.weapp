@@ -6,6 +6,11 @@ import * as moment from 'moment';
 import { UtilService } from 'src/app/services/utils/util.service';
 import { SelectionModel } from '@angular/cdk/collections';
 import { MatTableDataSource } from '@angular/material/table';
+import { LocalStorageService } from 'angular-web-storage';
+import { STORAGE_KEYS } from 'src/app/utils/storage-keys';
+import { Router } from '@angular/router';
+import { ROUTES } from 'src/app/utils/routes';
+import { RESPONSE_CODES } from 'src/app/utils/response-codes';
 
 @Component({
   selector: 'app-sp-booking',
@@ -13,8 +18,9 @@ import { MatTableDataSource } from '@angular/material/table';
   styleUrls: ['./sp-booking.component.scss'],
 })
 export class SpBookingComponent implements OnInit {
-  bookings: any = [];
+  userData: any;
 
+  bookings: any = [];
   initialSelection = [];
   allowMultiSelect = true;
   dataSource = new MatTableDataSource<Element>(this.bookings);
@@ -29,6 +35,8 @@ export class SpBookingComponent implements OnInit {
   dateFrom: string = '';
   dateTo: string = '';
 
+  sp_id: number = 0;
+  bookingStatus: string = 'CANCELLED';
   hasBookings: boolean = false;
   columns: string[] = [
     'checked',
@@ -45,10 +53,22 @@ export class SpBookingComponent implements OnInit {
   constructor(
     private dbService: DbService,
     public dialog: MatDialog,
-    private utilService: UtilService
+    private utilService: UtilService,
+    private storage: LocalStorageService,
+    private router: Router
   ) {}
 
   ngOnInit(): void {
+    this.userData = this.storage.get(STORAGE_KEYS.USER_DATA);
+    if (this.userData) {
+      this.sp_id = this.userData.service_partner_id;
+    }
+    if (!this.userData) {
+      this.storage.clear();
+      this.router.navigate([ROUTES.LOGIN]);
+      location.reload();
+    }
+    console.log(this.userData);
     const filterOptions = {
       dateFrom: this.dateFrom,
       dateTo: this.dateTo,
@@ -59,11 +79,11 @@ export class SpBookingComponent implements OnInit {
 
   getBookingsDateRange(filter: any) {
     const request = {
-      service_partner_id: '7',
+      service_partner_id: this.sp_id,
       date_from: filter.dateFrom,
       date_to: filter.dateTo,
       book_type: filter.bookType,
-      booking_status: 'PENDING',
+      booking_status: this.bookingStatus,
     };
     console.log(request);
     this.dbService.getBookingsDateRange(request).subscribe((data) => {
@@ -154,5 +174,23 @@ export class SpBookingComponent implements OnInit {
     // this.utilService.exportToCsv(filename, csvData);
     console.log(exportedIds);
     console.log(csvData);
+    this.updateBookingExported(exportedIds);
+  }
+
+  updateBookingExported(ids: string[]) {
+    const request = {
+      booking_detail_id: ids,
+    };
+    this.dbService.updateBookingExported(request).subscribe((data) => {
+      console.log(data);
+      if (data.response_code == RESPONSE_CODES.SUCCESS) {
+        const filterOptions = {
+          dateFrom: this.dateFrom,
+          dateTo: this.dateTo,
+          bookType: this.filter.bookType,
+        };
+        this.getBookingsDateRange(filterOptions);
+      }
+    });
   }
 }

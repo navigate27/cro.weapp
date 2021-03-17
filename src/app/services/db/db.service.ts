@@ -203,4 +203,20 @@ export class DbService {
       };
     }
   }
+
+  updateBookingExported(request: any) {
+    try {
+      const headers = this.utilService.setHeaders();
+      return this.http.post<any>(`${this.api}/booking/detail/export/many`, request, {
+        headers,
+      });
+    } catch (error) {
+      console.log(error);
+      throw {
+        message: error,
+      };
+    }
+  }
+
+  
 }

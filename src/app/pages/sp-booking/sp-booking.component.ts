@@ -10,6 +10,7 @@ import { Router } from '@angular/router';
 import { ROUTES } from 'src/app/utils/routes';
 import { RESPONSE_CODES } from 'src/app/utils/response-codes';
 import { SpTableSpecs } from 'src/app/models/specs/sp-table-specs';
+import { BOOKING_STATUS } from 'src/app/utils/booking-status';
 
 @Component({
   selector: 'app-sp-booking',
@@ -20,8 +21,8 @@ export class SpBookingComponent implements OnInit {
   userData: any;
 
   sp_id: number = 0;
-  bookingStatus: string = 'PENDING';
-  sortationStatus: string = 'FOR PICK-UP';
+  bookingStatus: string = BOOKING_STATUS.PENDING;
+  sortationStatus: string = BOOKING_STATUS.FOR_PICK_UP;
 
   updateCheckBooking: any;
   updateCheckSortation: any;

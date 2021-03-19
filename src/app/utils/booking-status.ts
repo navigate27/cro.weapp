@@ -1,0 +1,4 @@
+export const BOOKING_STATUS = {
+  PENDING: 'PENDING',
+  FOR_PICK_UP: 'FOR PICK-UP',
+};

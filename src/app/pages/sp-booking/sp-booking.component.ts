@@ -4,8 +4,6 @@ import { DbService } from 'src/app/services/db/db.service';
 import { SpBookingParcelDetailsComponent } from './sp-booking-parcel-details/sp-booking-parcel-details.component';
 import * as moment from 'moment';
 import { UtilService } from 'src/app/services/utils/util.service';
-import { SelectionModel } from '@angular/cdk/collections';
-import { MatTableDataSource } from '@angular/material/table';
 import { LocalStorageService } from 'angular-web-storage';
 import { STORAGE_KEYS } from 'src/app/utils/storage-keys';
 import { Router } from '@angular/router';

@@ -91,7 +91,7 @@
   <ng-container matColumnDef="book_date">
     <th mat-header-cell *matHeaderCellDef>Date</th>
     <td mat-cell *matCellDef="let element">
-      {{ element.booking_created_at }}
+      {{ element.booking_created_at | momentDateFormat }}
     </td>
   </ng-container>
 
@@ -103,7 +103,7 @@
   <ng-container matColumnDef="update_date">
     <th mat-header-cell *matHeaderCellDef>Update Date</th>
     <td mat-cell *matCellDef="let element">
-      {{ element.bookings_detail_updated_at }}
+      {{ element.bookings_detail_updated_at | momentDateFormat }}
     </td>
   </ng-container>
 
@@ -126,7 +126,10 @@
 
   <ng-container matColumnDef="is_exported">
     <th mat-header-cell *matHeaderCellDef>Exported</th>
-    <td mat-cell *matCellDef="let element">{{ element.is_exported }}</td>
+    <td mat-cell *matCellDef="let element">
+      <mat-icon color="primary" *ngIf="element.is_exported">done</mat-icon>
+      <mat-icon color="warn" *ngIf="!element.is_exported">close</mat-icon>
+    </td>
   </ng-container>
 
   <tr mat-header-row *matHeaderRowDef="columns"></tr>

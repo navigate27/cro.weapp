@@ -44,6 +44,7 @@ import { MatNativeDateModule } from '@angular/material/core';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { SpBookingTableComponent } from './components/table/sp-booking-component/sp-booking-table.component';
+import { MomentDateFormatPipe } from './pipes/moment-date-format/moment-date-format.pipe';
 
 @NgModule({
   declarations: [
@@ -67,6 +68,7 @@ import { SpBookingTableComponent } from './components/table/sp-booking-component
     SpBookingComponent,
     SpBookingParcelDetailsComponent,
     SpBookingTableComponent,
+    MomentDateFormatPipe,
   ],
   imports: [
     BrowserModule,

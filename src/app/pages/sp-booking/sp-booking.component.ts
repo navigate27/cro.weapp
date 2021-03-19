@@ -11,6 +11,7 @@ import { STORAGE_KEYS } from 'src/app/utils/storage-keys';
 import { Router } from '@angular/router';
 import { ROUTES } from 'src/app/utils/routes';
 import { RESPONSE_CODES } from 'src/app/utils/response-codes';
+import { SpTableSpecs } from 'src/app/models/specs/sp-table-specs';
 
 @Component({
   selector: 'app-sp-booking',
@@ -20,11 +21,14 @@ import { RESPONSE_CODES } from 'src/app/utils/response-codes';
 export class SpBookingComponent implements OnInit {
   userData: any;
 
+  sp_id: number = 0;
+  bookingStatus: string = 'PENDING';
+  sortationStatus: string = 'FOR PICK-UP';
+
+  updateCheckBooking: any;
+  updateCheckSortation: any;
   bookings: any = [];
-  initialSelection = [];
-  allowMultiSelect = true;
-  dataSource = new MatTableDataSource<Element>(this.bookings);
-  selection = new SelectionModel<Element>(true, []);
+  bookingsSortation: any = [];
 
   filter = {
     bookType: null,
@@ -32,23 +36,23 @@ export class SpBookingComponent implements OnInit {
     dateTo: null,
   };
 
-  dateFrom: string = '';
-  dateTo: string = '';
+  filterSortation = {
+    bookType: null,
+    dateFrom: null,
+    dateTo: null,
+  };
 
-  sp_id: number = 0;
-  bookingStatus: string = 'CANCELLED';
-  hasBookings: boolean = false;
-  columns: string[] = [
-    'checked',
-    'order_no',
-    'book_date',
-    'book_type',
-    'update_date',
-    'payment_type',
-    'total_amount',
-    'book_status',
-    'is_exported',
-  ];
+  spBookingsTableSpecs: SpTableSpecs = {
+    bookingStatus: this.bookingStatus,
+    bookings: [],
+    hasDownloadCSV: true,
+  };
+
+  spSortationTableSpecs: SpTableSpecs = {
+    bookingStatus: this.sortationStatus,
+    bookings: [],
+    hasDownloadCSV: false,
+  };
 
   constructor(
     private dbService: DbService,
@@ -69,12 +73,14 @@ export class SpBookingComponent implements OnInit {
       location.reload();
     }
     console.log(this.userData);
-    const filterOptions = {
-      dateFrom: this.dateFrom,
-      dateTo: this.dateTo,
-      bookType: this.filter.bookType,
+
+    this.spBookingsTableSpecs.orderIdClick = (row: any) => {
+      this.getRowBookings(row);
     };
-    this.getBookingsDateRange(filterOptions);
+
+    this.spSortationTableSpecs.orderIdClick = (row: any) => {
+      this.getRowSortation(row);
+    };
   }
 
   getBookingsDateRange(filter: any) {
@@ -83,22 +89,45 @@ export class SpBookingComponent implements OnInit {
       date_from: filter.dateFrom,
       date_to: filter.dateTo,
       book_type: filter.bookType,
-      booking_status: this.bookingStatus,
+      booking_status: filter.bookingStatus,
     };
+
     console.log(request);
-    this.dbService.getBookingsDateRange(request).subscribe((data) => {
-      this.bookings = data.booking_data;
-      this.dataSource = new MatTableDataSource<Element>(this.bookings);
-      this.masterToggle();
-      this.hasBookings = false;
-      if (this.bookings.length != 0) {
-        this.hasBookings = true;
+    this.dbService.getBookingsDateRange(request).subscribe(
+      (data) => {
+        console.log(data);
+        this.spBookingsTableSpecs.bookings = data.booking_data;
+        this.updateCheckBooking = moment().format('SSSSSSSSS');
+      },
+      (error) => {
+        console.log(error);
       }
-      console.log(data);
-    });
+    );
   }
 
-  getRow(row: any) {
+  getBookingsSortationDateRange(filter: any) {
+    const request = {
+      service_partner_id: this.sp_id,
+      date_from: filter.dateFrom,
+      date_to: filter.dateTo,
+      book_type: filter.bookType,
+      booking_status: filter.bookingStatus,
+    };
+
+    console.log(request);
+    this.dbService.getBookingsDateRange(request).subscribe(
+      (data) => {
+        console.log(data);
+        this.spSortationTableSpecs.bookings = data.booking_data;
+        this.updateCheckSortation = moment().format('SSSSSSSSS');
+      },
+      (error) => {
+        console.log(error);
+      }
+    );
+  }
+
+  getRowBookings(row: any) {
     let dialogRef = this.dialog.open(SpBookingParcelDetailsComponent, {
       height: '320px',
       width: '650px',
@@ -107,42 +136,57 @@ export class SpBookingComponent implements OnInit {
     dialogRef.afterClosed().subscribe((result) => {});
   }
 
-  filterBookings() {
-    console.log(this.filter);
-    this.dateFrom = moment(this.filter.dateFrom).format('YYYY-MM-DD 00:00:00');
-    this.dateTo = moment(this.filter.dateTo).format('YYYY-MM-DD 23:59:59');
+  getRowSortation(row: any) {
+    let dialogRef = this.dialog.open(SpBookingParcelDetailsComponent, {
+      height: '320px',
+      width: '650px',
+      data: row,
+    });
+    dialogRef.afterClosed().subscribe((result) => {});
+  }
+
+  async filterBookings(filter: any) {
+    const dateFrom = filter
+      ? moment(filter.dateFrom).format('YYYY-MM-DD 00:00:00')
+      : '';
+    const dateTo = filter
+      ? moment(filter.dateTo).format('YYYY-MM-DD 00:00:00')
+      : '';
     const filterOptions = {
-      dateFrom: this.dateFrom,
-      dateTo: this.dateTo,
-      bookType: this.filter.bookType,
+      dateFrom: dateFrom,
+      dateTo: dateTo,
+      bookType: filter.bookType,
+      bookingStatus: filter.bookingStatus,
     };
+    console.log(filterOptions);
     this.getBookingsDateRange(filterOptions);
   }
 
-  updateCheckedList(row: any) {
-    console.log(row);
+  async filterBookingsSortation(filter: any) {
+    const dateFrom = filter
+      ? moment(filter.dateFrom).format('YYYY-MM-DD 00:00:00')
+      : '';
+    const dateTo = filter
+      ? moment(filter.dateTo).format('YYYY-MM-DD 00:00:00')
+      : '';
+    const filterOptions = {
+      dateFrom: dateFrom,
+      dateTo: dateTo,
+      bookType: filter.bookType,
+      bookingStatus: filter.bookingStatus,
+    };
+    console.log(filterOptions);
+    this.getBookingsSortationDateRange(filterOptions);
   }
 
-  isAllSelected() {
-    const numSelected = this.selection.selected.length;
-    const numRows = this.dataSource.data.length;
-    return numSelected === numRows;
-  }
-
-  masterToggle() {
-    this.isAllSelected()
-      ? this.selection.clear()
-      : this.dataSource.data.forEach((row) => this.selection.select(row));
-  }
-
-  downloadCSV() {
-    const filename = `${this.dateFrom} - ${this.dateTo} ${
-      this.filter.bookType || ''
-    }.csv`;
+  downloadCSV(event: any) {
+    console.log(event);
+    const dateNow = moment().format('YYYY-MM-DD');
+    const filename = `${dateNow}.csv`;
     let csvData: any = [];
     let exportedIds: string[] = [];
 
-    this.selection.selected.forEach((row: any) => {
+    event.selection.selected.forEach((row: any) => {
       const rowData = {
         TRACKING_ID: row.tracking_id,
         ORDER_ID: row.order_id,
@@ -171,23 +215,32 @@ export class SpBookingComponent implements OnInit {
       exportedIds.push(row.booking_detail_id);
     });
 
-    // this.utilService.exportToCsv(filename, csvData);
+    this.utilService.exportToCsv(filename, csvData);
     console.log(exportedIds);
     console.log(csvData);
-    this.updateBookingExported(exportedIds);
+    if (event.hasDownloadCSV) {
+      this.updateBookingExported(exportedIds, event.filter);
+    }
   }
 
-  updateBookingExported(ids: string[]) {
+  updateBookingExported(ids: string[], filter: any) {
     const request = {
       booking_detail_id: ids,
     };
     this.dbService.updateBookingExported(request).subscribe((data) => {
       console.log(data);
       if (data.response_code == RESPONSE_CODES.SUCCESS) {
+        const dateFrom = filter
+          ? moment(filter.dateFrom).format('YYYY-MM-DD 00:00:00')
+          : '';
+        const dateTo = filter
+          ? moment(filter.dateTo).format('YYYY-MM-DD 00:00:00')
+          : '';
         const filterOptions = {
-          dateFrom: this.dateFrom,
-          dateTo: this.dateTo,
-          bookType: this.filter.bookType,
+          dateFrom: dateFrom,
+          dateTo: dateTo,
+          bookType: filter.bookType,
+          bookingStatus: filter.bookingStatus,
         };
         this.getBookingsDateRange(filterOptions);
       }

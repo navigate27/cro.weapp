@@ -39,11 +39,11 @@ import { DropPointDialogComponent } from './pages/drop-point/drop-point-dialog/d
 import { SpBookingComponent } from './pages/sp-booking/sp-booking.component';
 import { SpBookingParcelDetailsComponent } from './pages/sp-booking/sp-booking-parcel-details/sp-booking-parcel-details.component';
 import { MatTabsModule } from '@angular/material/tabs';
-import { SpBookingComponentComponent } from './components/table/sp-booking-component/sp-booking-component.component';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { SpBookingTableComponent } from './components/table/sp-booking-component/sp-booking-table.component';
 
 @NgModule({
   declarations: [
@@ -66,7 +66,7 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
     DropPointDialogComponent,
     SpBookingComponent,
     SpBookingParcelDetailsComponent,
-    SpBookingComponentComponent,
+    SpBookingTableComponent,
   ],
   imports: [
     BrowserModule,

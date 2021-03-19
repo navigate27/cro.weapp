@@ -1,20 +1,20 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { SpBookingComponentComponent } from './sp-booking-component.component';
+import { SpBookingTableComponent } from './sp-booking-table.component';
 
 describe('SpBookingComponentComponent', () => {
-  let component: SpBookingComponentComponent;
-  let fixture: ComponentFixture<SpBookingComponentComponent>;
+  let component: SpBookingTableComponent;
+  let fixture: ComponentFixture<SpBookingTableComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ SpBookingComponentComponent ]
+      declarations: [ SpBookingTableComponent ]
     })
     .compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(SpBookingComponentComponent);
+    fixture = TestBed.createComponent(SpBookingTableComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

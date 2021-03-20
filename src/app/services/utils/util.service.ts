@@ -1,16 +1,23 @@
 import { Injectable } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { LocalStorageService } from 'angular-web-storage';
 import { saveAs } from 'file-saver';
+import { STORAGE_KEYS } from 'src/app/utils/storage-keys';
 
 @Injectable({
   providedIn: 'root',
 })
 export class UtilService {
-  constructor(private snackBar: MatSnackBar) {}
+  constructor(
+    private snackBar: MatSnackBar,
+    private storage: LocalStorageService
+  ) {}
 
   setHeaders() {
+    const token = this.storage.get(STORAGE_KEYS.TOKEN);
     const headers = {
       'Content-Type': 'application/json',
+      'Authorization': `Bearer ${token}`,
     };
 
     return headers;
@@ -33,21 +40,27 @@ export class UtilService {
     const csvContent =
       keys.join(separator) +
       '\n' +
-      rows.map((row: any) => {
-        return keys.map(k => {
-          let cell = row[k] === null || row[k] === undefined ? '' : row[k];
-          cell = cell instanceof Date
-            ? cell.toLocaleString()
-            : cell.toString().replace(/"/g, '""');
-          if (cell.search(/("|,|\n)/g) >= 0) {
-            cell = `"${cell}"`;
-          }
-          return cell;
-        }).join(separator);
-      }).join('\n');
+      rows
+        .map((row: any) => {
+          return keys
+            .map((k) => {
+              let cell = row[k] === null || row[k] === undefined ? '' : row[k];
+              cell =
+                cell instanceof Date
+                  ? cell.toLocaleString()
+                  : cell.toString().replace(/"/g, '""');
+              if (cell.search(/("|,|\n)/g) >= 0) {
+                cell = `"${cell}"`;
+              }
+              return cell;
+            })
+            .join(separator);
+        })
+        .join('\n');
 
     const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
-    if (navigator.msSaveBlob) { // IE 10+
+    if (navigator.msSaveBlob) {
+      // IE 10+
       navigator.msSaveBlob(blob, filename);
     } else {
       const link = document.createElement('a');

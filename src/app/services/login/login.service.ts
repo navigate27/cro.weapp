@@ -12,10 +12,19 @@ export class LoginService {
 
   getLogin(request: any) {
     try {
+      return this.http.post(`${this.api}/portal/login`, request);
+    } catch (error) {
+      console.log(error);
+      throw {
+        message: error,
+      };
+    }
+  }
+
+  getUser() {
+    try {
       const headers = this.utilService.setHeaders();
-      return this.http.post<any>(`${this.api}/portal/user/login`, request, {
-        headers,
-      });
+      return this.http.get(`${this.api}/portal/user`, { headers });
     } catch (error) {
       console.log(error);
       throw {

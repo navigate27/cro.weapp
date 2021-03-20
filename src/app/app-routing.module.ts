@@ -11,6 +11,7 @@ import { PageNotFoundComponent } from './pages/page-not-found/page-not-found.com
 import { ServicePartnerComponent } from './pages/service-partner/service-partner.component';
 import { SpBookingComponent } from './pages/sp-booking/sp-booking.component';
 import { VipComponent } from './pages/vip/vip.component';
+import { AuthGuardService as AuthGuard } from './services/auth/auth-guard.service';
 
 const routes: Routes = [
   { path: '', component: LoginComponent },
@@ -21,9 +22,23 @@ const routes: Routes = [
   // { path: 'login', component: LoginComponent },
   // { path: 'apply/vip', component: ApplyVipComponent },
   // { path: 'sp', component: ServicePartnerComponent },
-  // { path: 'vip', component: VipComponent },
+  {
+    path: 'vip',
+    component: VipComponent,
+    canActivate: [AuthGuard],
+    data: {
+      expectedRole: 'ADMIN',
+    },
+  },
   // { path: 'dp', component: DropPointComponent },
-  { path: 'sp-booking', component: SpBookingComponent },
+  {
+    path: 'sp-booking',
+    component: SpBookingComponent,
+    canActivate: [AuthGuard],
+    data: {
+      expectedRole: 'SP',
+    },
+  },
   { path: '**', component: PageNotFoundComponent },
 ];
 

@@ -45,6 +45,8 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { SpBookingTableComponent } from './components/table/sp-booking-component/sp-booking-table.component';
 import { MomentDateFormatPipe } from './pipes/moment-date-format/moment-date-format.pipe';
+import { AppNavbarComponent } from './components/app-navbar/app-navbar.component';
+import { MatMenuModule } from '@angular/material/menu';
 
 @NgModule({
   declarations: [
@@ -69,6 +71,7 @@ import { MomentDateFormatPipe } from './pipes/moment-date-format/moment-date-for
     SpBookingParcelDetailsComponent,
     SpBookingTableComponent,
     MomentDateFormatPipe,
+    AppNavbarComponent,
   ],
   imports: [
     BrowserModule,
@@ -95,6 +98,7 @@ import { MomentDateFormatPipe } from './pipes/moment-date-format/moment-date-for
     MatNativeDateModule,
     MatCheckboxModule,
     MatProgressSpinnerModule,
+    MatMenuModule,
   ],
   providers: [
     { provide: ErrorHandler, useClass: ErrorHandlingService },

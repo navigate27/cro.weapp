@@ -19,6 +19,8 @@ export class LoginComponent implements OnInit {
   loginSubscription: Subscription = new Subscription();
   isDisabledLogin: boolean = true;
   userData: any = null;
+  token: string = '';
+
   constructor(
     private loginService: LoginService,
     private storage: LocalStorageService,
@@ -31,27 +33,21 @@ export class LoginComponent implements OnInit {
         this.isDisabledLogin = status == 'VALID' ? false : true;
       }
     );
-
-    this.userData = this.storage.get(STORAGE_KEYS.USER_DATA);
-    console.log(this.userData);
-    if (this.userData) {
-      this.router.navigate([ROUTES.SP_BOOKING]);
-      location.reload();
-    }
   }
 
   login() {
     const request = this.loginFormGroup.value;
     console.log(request);
-    this.loginService.getLogin(request).subscribe((data) => {
-      console.log(data);
+    this.loginService.getLogin(request).subscribe((data: any) => {
       if (data.response_code == RESPONSE_CODES.SUCCESS) {
-        this.userData = data.user_data;
-        this.storage.set(STORAGE_KEYS.USER_DATA, this.userData);
-        if (this.userData.account_type == ACCOUNT_TYPES.SERVICE_PARTNER) {
+        this.token = data.token;
+        this.storage.set(STORAGE_KEYS.TOKEN, this.token, 1, 'd');
+
+        this.loginService.getUser().subscribe((data) => {
+          console.log(data);
+          this.storage.set(STORAGE_KEYS.USER_DATA, data, 1, 'd');
           this.router.navigate([ROUTES.SP_BOOKING]);
-          location.reload();
-        }
+        });
       }
     });
   }

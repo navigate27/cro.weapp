@@ -1,6 +1,6 @@
 <div class="padding login">
   <img src="./../../assets/logo-weeapp.jpg" alt="" />
-  <form [formGroup]="loginFormGroup">
+  <form [formGroup]="loginFormGroup" (keydown.enter)="login()">
     <div>
       <mat-form-field>
         <mat-label>Email</mat-label>

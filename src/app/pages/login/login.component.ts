@@ -9,6 +9,7 @@ import { RESPONSE_CODES } from 'src/app/utils/response-codes';
 import { STORAGE_KEYS } from 'src/app/utils/storage-keys';
 import { ACCOUNT_TYPES } from 'src/app/utils/account-types';
 import { ROUTES } from 'src/app/utils/routes';
+import { Emitters } from 'src/app/emitters/emitters';
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -28,6 +29,7 @@ export class LoginComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    this.loginFormGroup.reset();
     this.loginSubscription = this.loginFormGroup.statusChanges.subscribe(
       (status) => {
         this.isDisabledLogin = status == 'VALID' ? false : true;
@@ -47,6 +49,7 @@ export class LoginComponent implements OnInit {
           console.log(data);
           this.storage.set(STORAGE_KEYS.USER_DATA, data, 1, 'd');
           this.router.navigate([ROUTES.SP_BOOKING]);
+          Emitters.authEmitter.emit(true);
         });
       }
     });

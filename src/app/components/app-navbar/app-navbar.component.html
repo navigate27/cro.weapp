@@ -1,4 +1,4 @@
-<mat-toolbar color="primary">
+<mat-toolbar color="primary" *ngIf="isLoggedIn">
   <!-- <span>Wee Express Logistics Asia Inc.</span> -->
   <span>Wee Express App Portal</span>
   <span class="example-spacer"></span>
@@ -7,7 +7,7 @@
     <mat-icon>tag_faces</mat-icon>
   </button>
   <mat-menu #menu="matMenu">
-    <button mat-menu-item disabled>Username</button>
-    <button mat-menu-item>Logout</button>
+    <span mat-menu-item class="font-weight-bold">{{ name }}</span>
+    <button mat-menu-item (click)="logout()">Logout</button>
   </mat-menu>
 </mat-toolbar>

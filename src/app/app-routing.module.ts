@@ -20,7 +20,7 @@ const routes: Routes = [
   // { path: 'booking-list', component: BookingListComponent },
   // { path: 'account', component: AccountComponent },
   // { path: 'login', component: LoginComponent },
-  // { path: 'apply/vip', component: ApplyVipComponent },
+  { path: 'apply/vip', component: ApplyVipComponent },
   // { path: 'sp', component: ServicePartnerComponent },
   {
     path: 'vip',

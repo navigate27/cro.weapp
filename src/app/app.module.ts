@@ -47,6 +47,8 @@ import { SpBookingTableComponent } from './components/table/sp-booking-component
 import { MomentDateFormatPipe } from './pipes/moment-date-format/moment-date-format.pipe';
 import { AppNavbarComponent } from './components/app-navbar/app-navbar.component';
 import { MatMenuModule } from '@angular/material/menu';
+import { MatProgressBarModule } from '@angular/material/progress-bar';
+import { LoadingComponent } from './components/loading/loading.component';
 
 @NgModule({
   declarations: [
@@ -72,6 +74,7 @@ import { MatMenuModule } from '@angular/material/menu';
     SpBookingTableComponent,
     MomentDateFormatPipe,
     AppNavbarComponent,
+    LoadingComponent,
   ],
   imports: [
     BrowserModule,
@@ -99,6 +102,7 @@ import { MatMenuModule } from '@angular/material/menu';
     MatCheckboxModule,
     MatProgressSpinnerModule,
     MatMenuModule,
+    MatProgressBarModule
   ],
   providers: [
     { provide: ErrorHandler, useClass: ErrorHandlingService },

@@ -21,6 +21,7 @@ export class LoginComponent implements OnInit {
   isDisabledLogin: boolean = true;
   userData: any = null;
   token: string = '';
+  isLoading: boolean = false;
 
   constructor(
     private loginService: LoginService,
@@ -38,16 +39,18 @@ export class LoginComponent implements OnInit {
   }
 
   login() {
+    this.isLoading = true;
     const request = this.loginFormGroup.value;
     console.log(request);
     this.loginService.getLogin(request).subscribe((data: any) => {
       if (data.response_code == RESPONSE_CODES.SUCCESS) {
         this.token = data.token;
         this.storage.set(STORAGE_KEYS.TOKEN, this.token, 1, 'd');
-
+        
         this.loginService.getUser().subscribe((data) => {
           console.log(data);
           this.storage.set(STORAGE_KEYS.USER_DATA, data, 1, 'd');
+          this.isLoading = false;
           this.router.navigate([ROUTES.SP_BOOKING]);
           Emitters.authEmitter.emit(true);
         });

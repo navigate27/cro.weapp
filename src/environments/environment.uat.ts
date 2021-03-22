@@ -6,7 +6,7 @@ export const environment = {
   production: false,
   env: "uat",
   config: {
-    apiUrl: "http://192.168.1.26:8080/api",
+    apiUrl: "http://api.weexpressasia.com/www/api",
     isLogsEnabled: true,
   },
 };

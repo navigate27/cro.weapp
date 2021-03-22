@@ -23,6 +23,10 @@
       >
         Login
       </button>
+      
+      <div class="mt-4" *ngIf="isLoading">
+        <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+      </div>
     </div>
   </form>
 </div>

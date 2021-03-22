@@ -1,9 +1,14 @@
-.container {
+.vip-container {
   margin: 0 auto;
   width: 50%;
   text-align: center;
+  padding: 100px;
 
   .full-width-field {
     width: 100%;
+  }
+
+  .required {
+    color: red;
   }
 }

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { Subscription } from 'rxjs';
+import { Emitters } from 'src/app/emitters/emitters';
 import { DbService } from 'src/app/services/db/db.service';
 import { ApplyVIPFormGroup } from 'src/app/utils/form-group/apply-vip';
 import { RESPONSE_CODES } from 'src/app/utils/response-codes';
@@ -17,7 +18,8 @@ export class ApplyVipComponent implements OnInit {
   isSubmitted: boolean = false;
   applyButtonSubscription: Subscription;
   userData: any;
-  servicePlatform: string = 'Wee Express Web App';
+  servicePlatform: string = 'Wee Express Web Portal';
+  isLoading: boolean = false;
 
   constructor(private dbService: DbService) {
     this.applyButtonSubscription = this.applyVIPFormGroup.statusChanges.subscribe(
@@ -27,9 +29,12 @@ export class ApplyVipComponent implements OnInit {
     );
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    Emitters.authEmitter.emit(false);
+  }
 
   searchEmail() {
+    this.isLoading = true;
     const emailFormGroup: any = this.applyVIPFormGroup.get('email');
     const request = {
       email: emailFormGroup.value,
@@ -47,16 +52,21 @@ export class ApplyVipComponent implements OnInit {
           user_id: this.userData.id,
         },
       });
+      this.isLoading = false;
     });
   }
 
   applyVIP() {
+    this.isLoading = true;
+    this.isApplyDisabled = true;
     const request = this.applyVIPFormGroup.value;
     this.dbService.addVIP(request).subscribe((data) => {
       console.log(data);
       if (data.response_code == RESPONSE_CODES.SUCCESS) {
         this.isSubmitted = true;
       }
+      this.isApplyDisabled = false;
+      this.isLoading = false;
     });
   }
 }

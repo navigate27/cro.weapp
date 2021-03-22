@@ -36,6 +36,11 @@ export class LoginComponent implements OnInit {
         this.isDisabledLogin = status == 'VALID' ? false : true;
       }
     );
+
+    const token = this.storage.get(STORAGE_KEYS.TOKEN);
+    if(token){
+      this.router.navigate([ROUTES.SP_BOOKING]);
+    }
   }
 
   login() {

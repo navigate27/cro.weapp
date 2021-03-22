@@ -12,6 +12,7 @@ import { RESPONSE_CODES } from 'src/app/utils/response-codes';
 import { SpTableSpecs } from 'src/app/models/specs/sp-table-specs';
 import { BOOKING_STATUS } from 'src/app/utils/booking-status';
 import { AuthService } from 'src/app/services/auth/auth.service';
+import { Emitters } from 'src/app/emitters/emitters';
 
 @Component({
   selector: 'app-sp-booking',
@@ -64,6 +65,7 @@ export class SpBookingComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    Emitters.authEmitter.emit(true);
     const user = this.auth.user();
     this.dbService.getSPPortalUser(user.id).subscribe((data: any) => {
       console.log(data);

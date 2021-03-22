@@ -1,18 +1,19 @@
-<div class="container">
-  <h2 class="mat-display-1 pt-4">VIP Customer Application</h2>
+<div class="vip-container">
+  <h2 class="mat-display-1 pt-4">Wee VIP Customer Application</h2>
 
-  <form [formGroup]="applyVIPFormGroup" *ngIf="!isSubmitted">
+  <form [formGroup]="applyVIPFormGroup" *ngIf="!isSubmitted" (submit)="searchEmail()">
     <mat-form-field class="full-width-field">
       <mat-label>Email</mat-label>
       <input
         matInput
-        type="text"
+        type="email"
         formControlName="email"
         [readOnly]="isUserExists"
       />
     </mat-form-field>
 
     <div *ngIf="isUserExists">
+      <p class="text-left mt-4">Required Fields (<span class="required">*</span>)</p>
       <mat-form-field class="full-width-field">
         <mat-label>Name</mat-label>
         <input matInput readonly formControlName="name" />
@@ -65,11 +66,16 @@
       mat-raised-button
       color="primary"
       mat-button
+      type="submit"
       (click)="searchEmail()"
       *ngIf="!isUserExists"
     >
       Search Email
     </button>
+
+    <div class="mt-4" *ngIf="isLoading">
+      <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+    </div>
   </form>
 
   <div class="success-vip" *ngIf="isSubmitted">
@@ -78,7 +84,7 @@
       mat-raised-button
       color="primary"
       mat-button
-    >
+    routerLink="/login">
       Go Home
     </button>
   </div>

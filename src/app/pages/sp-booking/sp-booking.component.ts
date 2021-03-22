@@ -11,6 +11,7 @@ import { ROUTES } from 'src/app/utils/routes';
 import { RESPONSE_CODES } from 'src/app/utils/response-codes';
 import { SpTableSpecs } from 'src/app/models/specs/sp-table-specs';
 import { BOOKING_STATUS } from 'src/app/utils/booking-status';
+import { AuthService } from 'src/app/services/auth/auth.service';
 
 @Component({
   selector: 'app-sp-booking',
@@ -58,20 +59,16 @@ export class SpBookingComponent implements OnInit {
     public dialog: MatDialog,
     private utilService: UtilService,
     private storage: LocalStorageService,
-    private router: Router
+    private router: Router,
+    private auth: AuthService
   ) {}
 
   ngOnInit(): void {
-    this.userData = this.storage.get(STORAGE_KEYS.USER_DATA);
-    if (this.userData) {
-      this.sp_id = this.userData.service_partner_id;
-    }
-    if (!this.userData) {
-      this.storage.clear();
-      this.router.navigate([ROUTES.LOGIN]);
-      location.reload();
-    }
-    console.log(this.userData);
+    const user = this.auth.user();
+    this.dbService.getSPPortalUser(user.id).subscribe((data: any) => {
+      console.log(data);
+      this.sp_id = data.id;
+    });
 
     this.spBookingsTableSpecs.orderIdClick = (row: any) => {
       this.getRowBookings(row);

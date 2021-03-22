@@ -6,7 +6,7 @@ export const environment = {
   production: false,
   env: "dev",
   config: {
-    apiUrl: "http://127.0.0.1:8000/api",
+    apiUrl: "http://192.168.1.26:8070/api",
     isLogsEnabled: true,
   },
 };

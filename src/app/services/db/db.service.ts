@@ -218,5 +218,19 @@ export class DbService {
     }
   }
 
+  getSPPortalUser(id: number) {
+    try {
+      const headers = this.utilService.setHeaders();
+      return this.http.get(`${this.api}/service/partner/portal/user/${id}`, {
+        headers,
+      });
+    } catch (error) {
+      console.log(error);
+      throw {
+        message: error,
+      };
+    }
+  }
+
   
 }
